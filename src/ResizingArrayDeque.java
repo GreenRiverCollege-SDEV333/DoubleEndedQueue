@@ -21,6 +21,7 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public int size() {
+        
         return size;
     }
 
@@ -36,6 +37,25 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+
+        checkSize();
+
+        if ( size == 0 ) {
+            data[0] = item;
+        }
+        else {
+            // I want to start at Index[1] and assign it the value at Index[0]
+            // I then want to move to Index[2] and assign it the value at Index[1]
+
+            // Definitely not going about it correctly. Stumped!
+            for (int i = 1; i < size; i++) {
+                data[i] = data[i - 1];
+            }
+            data[0] = item;
+        }
+
+        size++;
+
     }
 
     /**
@@ -50,6 +70,12 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+
+        checkSize();
+
+        data[size] = item;
+        size++;
+
     }
 
     /**
@@ -62,6 +88,14 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // check if empty
         // if empty: do nothing and return null
 
+        // value at first index
+        ItemType result = data[0];
+
+        // if empty, return null and not result variable
+        if ( size == 0 ) {
+            return null;
+        }
+
         // if there's only one item: is this a special case?
 
         // if not empty:
@@ -70,7 +104,25 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
 
-        return null;
+
+        // starting at index 1, give every index the value of the next index
+        else {
+            for (int i = 0; i < size; i++) {
+                data[i] = data[i + 1];
+            }
+            size++;
+        }
+
+        // return the value of the first item
+        return result;
+    }
+
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + " ";
+        }
+        return result;
     }
 
     /**
@@ -82,6 +134,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+        if ( size == 0 ) {
+            return null;
+        }
 
         // if there is only one item: is this a special case?
 
@@ -91,7 +146,14 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
 
-        return null;
+        // save the value of the item at the last index
+        ItemType result = data[size];
+
+        // then make the last item null
+        data[size] = null;
+
+        // return the saved value - not the now null value
+        return result;
     }
 
     // helper method to check to see if the size has reached the capacity
