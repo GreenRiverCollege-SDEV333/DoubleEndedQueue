@@ -33,10 +33,27 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
-
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+
+        checkSize();
+
+        while(size != 0) {
+
+        }
+        int index = 0;
+        for (int i = size; i >= data.length + 1; i--) {
+            data[i] = data[i - 1];
+            index ++;
+        }
+
+        data[index] = item;
+        size++;
+
     }
+
+
+
 
     /**
      * Adds an item to the back of the deque.
@@ -50,6 +67,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+        checkSize();
+        data[size] = item;
+
     }
 
     /**
@@ -61,7 +81,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
-
+        if(size == 0) {
+            return null;
+        }
         // if there's only one item: is this a special case?
 
         // if not empty:
@@ -82,16 +104,25 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+        if(size ==0){
+            return null;
+        }
 
         // if there is only one item: is this a special case?
 
+        ItemType temp = null;
+        for(int i = 0; i < data.length-1; i++){
+            data[i] = data[i+1];
+            temp = data[i];
+        }
+        size--;
         // if not empty, has more than one item:
         // 0. figure out a way to access the item in the back
         // 1. make a variable to save a copy of the item at the back
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
 
-        return null;
+        return temp;
     }
 
     // helper method to check to see if the size has reached the capacity
