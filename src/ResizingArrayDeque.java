@@ -32,9 +32,23 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
+        if(size == 0) {
+            data[0]=item;
+        }
         // consider the case of adding to a non-empty list
+        else{
+            //ItemType[] temp = (ItemType[]) new Object[size];
 
+            for (int i = 0; i < size; i++) {
+                data[i] = data[i++];
+            }
+            //data = temp;
+            data[0] = item;
+
+        }
+        size++;
         // There is a private helper method checkSize() defined below to check/resize
+        checkSize();
         // that you can call as needed to check if the array is full and resize it.
     }
 
@@ -46,10 +60,17 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
+        if(size == 0) {
+            data[0]=item;
+        }
         // consider the case of adding to a non-empty list
-
+        else {
+            data[size + 1] = item;
+        }
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+        checkSize();
+        size++;
     }
 
     /**
@@ -61,15 +82,28 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
-
+        if(size == 0) {
+            return null;
+        }
         // if there's only one item: is this a special case?
-
+        else if (size == 1) {
+            data[size] = null;
+        }
         // if not empty:
         // 0. figure out a way to access the item in the front
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
+        else {
+            ItemType[] temp = (ItemType[]) new Object[size];
 
+            for (int i = 0; i < size; i++) {
+                temp[i] = data[i++];
+            }
+            data = temp;
+        }
+
+        size--;
         return null;
     }
 
@@ -82,14 +116,28 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
-
+        if (size == 0) {
+            return null;
+        }
         // if there is only one item: is this a special case?
-
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
+        else if (size >= 1) {
+            data[size] = null;
+        } else {
+            // if not empty, has more than one item:
+            // 0. figure out a way to access the item in the back
+            // 1. make a variable to save a copy of the item at the back
+            // 2. remove the item at the back
+            // 3. return the variable that has the saved copy of the item at the back
+//            ItemType[] temp = (ItemType[]) new Object[size];
+//
+//            for (int i = 0; i < size; i++) {
+//                temp[i] = data[i];
+//            }
+//            temp[size] = null;
+//            data = temp;
+            //data[size] = null;
+        }
+        size--;
 
         return null;
     }
@@ -115,5 +163,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + "";
+        }
+        return result;
     }
 }
