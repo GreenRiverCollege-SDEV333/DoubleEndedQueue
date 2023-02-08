@@ -40,17 +40,21 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
 
+        //case for empty list
         if(head == null){
+            //create new node and have head point to it
             Node addThis = new Node();
             addThis.data = item;
             addThis.next = null;
             head = addThis;
         }else{
+            //otherwise create new node, have it point to old head, then make it the head
             Node insert = new Node();
             insert.data = item;
             insert.next = head;
             head = insert;
         }
+        //track size
         size++;
     }
 
@@ -66,21 +70,27 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         }
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+        //case for empty list:
         if(head == null){
+            //made a new node and have head point to it
             Node addThis = new Node();
             addThis.data = item;
             addThis.next = null;
             head = addThis;
         }else{
+            //otherwise get to last node
             Node currentNode = head;
             while(currentNode.next != null){
                 currentNode = currentNode.next;
             }
+            //then have it point to a new node rather than null
             Node insert = new Node();
             insert.data = item;
             insert.next = null;
             currentNode.next = insert;
         }
+        //keep track of size
         size++;
     }
 
@@ -102,16 +112,20 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
 
+        //check empty
         if(head == null){
             return null;
         }
-        if(head.next == null){
+        //check if one item in list
+        else if(head.next == null){
+            //take head data, make head null, track size, then return data
             ItemType returnThis = head.data;
             head = null;
             size--;
             return returnThis;
 
         }else{
+            //take head data, make next item head, track size, return data
             ItemType returnThis = head.data;
             head = head.next;
             size--;
@@ -138,15 +152,20 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the back
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
+
+        //if empty
         if (head == null) {
             return null;
         }
-        if (head.next == null) {
+        //if one item take head data, make head null, track size, then return data
+        else if (head.next == null) {
             ItemType returnThis = head.data;
             head = null;
             size--;
             return returnThis;
-        } else {
+        }
+        //else get to one item before end of list, grab end item's data to return and make second to last item next = null, return data
+        else {
             Node currentNode = head;
             while (currentNode.next.next != null) {
                 currentNode = currentNode.next;

@@ -37,7 +37,8 @@ public class Main {
 //        System.out.println(d1.size()); //0
         System.out.println(d2.size()); //0
 
-        System.out.println(d2.removeFirst());
+        System.out.println(d1.removeFirst());
+        System.out.println(d1.removeFirst());
 //        System.out.println(d1.removeFirst());
 
     }
