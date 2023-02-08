@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     // constants
     public static int DEFAULT_CAPACITY = 10;
@@ -34,6 +36,31 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
 
+        ItemType[] temp = data;
+        //Max: Step 1 - Check if it is empty
+
+        if (size == 0){
+            // Max: if it is empty, add item to the arraylist
+
+            // Max: Increase the size of array
+            size++;
+        } else{ // Max: If it is not empty
+            // Max: Create a temporary variable to store the current first item in array list
+
+            //Max: go through the arraylist and store the latest item in the temporary
+            for (int i = 0; i < data.length; i++) {
+                temp = data;
+            }
+
+            //Max: store the temp so that it will still be in the list and increase the size
+
+            //Max: Add the item to the latest size which is currently null
+
+            //Max: successfully increase size, keeping recent addition and adding the newest one
+
+
+        }
+
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
     }
@@ -47,6 +74,17 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+        // Max: if the list is empty, just add to the first spot
+        if (size == 0){
+            // Max: add the item to the array and increase the size
+
+        } else { //Max: if it is not empty...
+            // Max: backtrack the array adding an index to each spot
+
+            //Max: replace index 0 with the item
+
+        }
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
@@ -62,6 +100,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // check if empty
         // if empty: do nothing and return null
 
+        // Max: if the list is empty, send a message saying there is nothing to remove
+        if (size == 0){
+            System.out.println("This list is empty, nothing to remove");
+            return null;
+        } else { // Max: if the list does have something...
+            //Max: go through the array find the most recent index and remove it
+        }
         // if there's only one item: is this a special case?
 
         // if not empty:
@@ -82,6 +127,14 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+
+        // Max: if the list is empty, send a message saying there is nothing to remove
+        if (size == 0){
+            System.out.println("This list is empty, nothing to remove");
+            return null;
+        } else { // Max: if the list does have something...
+
+        }
 
         // if there is only one item: is this a special case?
 
@@ -115,5 +168,14 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+    // Max: adding the toString method to test the code
+    public String toString(){
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + " ";
+        }
+        return result;
     }
 }
