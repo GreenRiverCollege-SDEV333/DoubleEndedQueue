@@ -36,6 +36,19 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+        checkSize();
+        if (size == 0) {
+            data[size] = item;
+        }
+        if(size!= 0){
+            ItemType temp = data[0];
+            for (int i = size; i > 0; i--) {
+                data[size] = data[size-1];
+            }
+            data[0] = item;
+        }
+        size++;
+
     }
 
     /**
@@ -50,6 +63,11 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+
+        checkSize();
+
+        data[size] = item;
+        size++;
     }
 
     /**
@@ -70,6 +88,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
 
+        if (size == 0){
+            return null;
+        }
+        if (size == 1){
+            size--;
+        }
+        if (size != 0){
+            for (int i = 0; i < size - 1; i++) {
+                data[i] = data[i + 1];
+            }
+            size--;
+        }
         return null;
     }
 
@@ -91,6 +121,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
 
+        if(size ==0) {
+            return null;
+        }
+        if (size == 1){
+            size--;
+        }
+        if (size != 0){
+            for (int i = size; i > 0; i--) {
+                data[size] = data[size - 1];
+            }
+            size--;
+        }
         return null;
     }
 
@@ -115,5 +157,14 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + " ";
+        }
+        return result;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 /**
  * A Deque (prounounced "deck") is a Double Ended Queue (DEQue).
  * Items can be added to the front or back of the deque, but not in the middle.
@@ -34,4 +36,5 @@ public interface Deque<ItemType> {
      * @return item at the back that was just removed, or null if empty
      */
     public ItemType removeLast();
+
 }
