@@ -36,6 +36,13 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+        Node theNewOne = new Node();
+        theNewOne.data = item;
+        theNewOne.next = head;
+
+        head = theNewOne;
+
     }
 
     /**
@@ -47,6 +54,20 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+         Node theNewOne = new Node();
+       theNewOne.data = item;
+       theNewOne.next = null;
+       if (head == null){ // if empty list
+           head = theNewOne;
+       } else{ // non empty list
+           Node current = head;
+           while(current.next != null) {
+               current = current.next;
+           }
+           current.next = theNewOne;
+       }
+       size++;
     }
 
     /**
@@ -58,10 +79,23 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
+        if (size == 0) {
+
+        }
 
         // if there's only one item: is this a special case?
+        else if (size == 1) {
+            Node oneNode = head.next;
+            oneNode = null;
+            oneNode.data = null;
+            head = null;
+            size--;
+        }
 
         // if not empty:
+        else {
+
+        }
         // 0. figure out a way to access the item in the front
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
@@ -79,6 +113,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+
 
         // if there is only one item: is this a special case?
 
