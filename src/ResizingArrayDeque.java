@@ -31,6 +31,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
+        checkSize();
+        ItemType[] temp = (ItemType[]) new Object[this.size + 1];
+        temp[0] = item;
+        if(this.size != 0){
+            for (int i = 0; i < size; i++) {
+                temp[i+1] = data[i];
+            }
+        }
+        this.data = temp;
+        this.size++;
+
+
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
 
@@ -45,6 +57,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
+        checkSize();
+        this.data[this.size] = item;
+        this.size++;
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
 
@@ -59,6 +74,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeFirst() {
+        if(this.size == 0){
+            return null;
+        }else{
+            ItemType[] temp = (ItemType[]) new Object[this.size];
+            ItemType toReturn = this.data[0];
+            for (int i = 1; i < size; i++) {
+                temp[i-1] = data[i];
+            }
+            this.data = temp;
+            this.size--;
+            return toReturn;
+        }
         // check if empty
         // if empty: do nothing and return null
 
@@ -69,8 +96,6 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
-
-        return null;
     }
 
     /**
@@ -83,6 +108,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // check if empty
         // if empty: do nothing and return null
 
+        if(this.size == 0){
+            return null;
+        }else{
+            this.size--;
+            return this.data[this.size];
+        }
+
         // if there is only one item: is this a special case?
 
         // if not empty, has more than one item:
@@ -90,8 +122,6 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the back
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
-
-        return null;
     }
 
     // helper method to check to see if the size has reached the capacity
