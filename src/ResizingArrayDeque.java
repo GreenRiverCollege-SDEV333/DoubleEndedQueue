@@ -33,9 +33,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if (item == null) {
+            throw new NullPointerException();
+        }
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+
     }
 
     /**
@@ -47,7 +51,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
-
+        if (item == null) {
+            throw new NullPointerException();
+        }
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
     }
@@ -109,7 +115,7 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
                 temp[i] = data[i];
             }
 
-            // Step 3 - repoint/refererence data to point to new array
+            // Step 3 - repoint/reference data to point to new array
             data = temp;
 
             // Optional:

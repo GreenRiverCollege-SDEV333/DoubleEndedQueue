@@ -27,6 +27,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         return size;
     }
 
+
     /**
      * Adds an item to the front of the deque.
      *
@@ -36,6 +37,10 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if (item == null) {
+            throw new NullPointerException();
+        }
+
     }
 
     /**
@@ -47,6 +52,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
     }
 
     /**
@@ -63,6 +69,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
 
         // if not empty:
         // 0. figure out a way to access the item in the front
+
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
