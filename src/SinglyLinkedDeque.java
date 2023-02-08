@@ -115,7 +115,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // check if empty
         // if empty: do nothing and return null
 
-        /if(size == 0) {
+        if(size == 0) {
             return null;
         }
         // if there's only one item: is this a special case?
@@ -130,10 +130,9 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 3. return the variable that has the saved copy of the item at the back
         else {
             Node current = head;
-            while (current != null) {
-                current = current.next;
-                current.next =
-
+            while (current.data != null) {
+                current.next = current;
+                current = current.next ;
             }
         }
 
