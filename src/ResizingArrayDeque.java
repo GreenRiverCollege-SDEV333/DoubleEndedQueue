@@ -32,6 +32,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
+        if(size == 0){
+            data[0] = item;
+        } else {
+            checkSize();
+            //move everything over
+            for (int i = size + 1; i > 0 ; i--) {
+                data[i] = data[i-1];
+            }
+            data[0] = item;
+        }
+        //update size
+        size++;
         // consider the case of adding to a non-empty list
 
         // There is a private helper method checkSize() defined below to check/resize
@@ -47,6 +59,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if (size == 0){
+            addFirst(item);
+        } else {
+            checkSize();
+            data[size()] = item;
+            size ++;
+        }
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
@@ -61,16 +80,21 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
-
-        // if there's only one item: is this a special case?
-
-        // if not empty:
-        // 0. figure out a way to access the item in the front
-        // 1. make a variable to save a copy of the item at the front
-        // 2. remove the item at the front
-        // 3. return the variable that has the saved copy of the item at the front
-
-        return null;
+        if (size == 0){
+            return null;
+        } else if (size == 1){
+            ItemType tempVar = data[0];
+            data[0] = null;
+            size = 0;
+            return tempVar;
+        } else {
+            ItemType tempVar = data[0];
+            for (int i = 0; i < size() - 1 ; i++) {
+                data[i] = data [i +1];
+            }
+            size --;
+            return tempVar;
+        }
     }
 
     /**
@@ -82,16 +106,19 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
-
-        // if there is only one item: is this a special case?
-
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
-
-        return null;
+        if( size == 0 ){
+            return null;
+        } else if ( size == 1 ){
+            ItemType tempVar = data[0];
+            data[0] = null;
+            size = 0;
+            return tempVar;
+        } else {
+            ItemType tempVar = data[size() - 1];
+            data[size()-1] = null;
+            size --;
+            return tempVar;
+        }
     }
 
     // helper method to check to see if the size has reached the capacity
