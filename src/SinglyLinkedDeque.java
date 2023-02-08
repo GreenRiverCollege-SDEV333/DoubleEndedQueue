@@ -1,3 +1,5 @@
+import edu.greenriver.sdev333.SinglyLinkedList;
+
 public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     // private helper classes
     private class Node {
@@ -36,6 +38,26 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if (head == null){
+            Node theNewOne = new SinglyLinkedDeque.Node();
+            theNewOne.data = item;
+            theNewOne.next = head;
+
+            head = theNewOne;
+        } else if (head!= null) {
+            SinglyLinkedDeque.Node current = head;
+
+            for (int i = 0; i < size - 1; i++) {
+                current = current.next;
+            }
+
+            SinglyLinkedDeque.Node theNewOne = new SinglyLinkedDeque.Node();
+            theNewOne.data = item;
+            theNewOne.next = current.next;
+
+            current.next = theNewOne;
+        }
+        size++;
     }
 
     /**
@@ -47,6 +69,26 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if (head == null){
+            Node theNewOne = new SinglyLinkedDeque.Node();
+            theNewOne.data = item;
+            theNewOne.next = head;
+
+            head = theNewOne;
+        } else if (head != null) {
+            SinglyLinkedDeque.Node current = head;
+
+            for (int i = 0; i < size - 1; i++) {
+                current = current.next;
+            }
+
+            SinglyLinkedDeque.Node theNewOne = new SinglyLinkedDeque.Node();
+            theNewOne.data = item;
+            theNewOne.next = current.next;
+
+            current.next = theNewOne;
+        }
+        size++;
     }
 
     /**
@@ -66,6 +108,21 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
+        if (head == null) {
+            return null;
+        } else if (size == 1) {
+            head=head.next;
+        } else if (size != 0) {
+            Node temp = null;
+            Node current = head;
+            for (int i = size - 1; i > 0; i++) {
+                current = current.next;
+                current = temp;
+            }
+
+            current = temp;
+        }
+        size--;
 
         return null;
     }
@@ -88,6 +145,31 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
 
+        if (head == null) {
+            return null;
+        } else if (size == 1) {
+            head=head.next;
+        } else if (size != 0) {
+            Node current = head;
+            for (int i = 0; i < size - 2; i++) {
+                current = current.next;
+            }
+
+            current.next = current.next.next;
+        }
+        size--;
+
         return null;
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        Node current = head;
+        while(current != null){
+            result += current.data + " ";
+            current = current.next;
+        }
+        return result;
     }
 }
