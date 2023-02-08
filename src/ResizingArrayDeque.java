@@ -36,7 +36,15 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
-    }
+        checkSize();
+
+            for (int i = size; i >= 0; i--) {
+                data[i+1] = data[i];
+            }
+            data[0] = item;
+            size++;
+        }
+
 
     /**
      * Adds an item to the back of the deque.
@@ -50,7 +58,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
-    }
+
+        checkSize();
+        data[size] = item;
+        size++;
+
+        }
+
 
     /**
      * Remove and return the item from the front, does nothing if empty.
@@ -61,6 +75,41 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
+
+        if(size == 0){
+            throw new NullPointerException();
+        }
+
+        else if(size==1){
+            data[0]= null;
+        }
+        else {
+
+            ItemType removed = data[0];
+            for (int i = 0; i < size; i++) {
+                data[i] = data[i+1];
+            }
+
+            /* this is basically what i want to happen
+            data[0]=data[1];
+            data[1]=data[2];
+            data[2]=data[3];
+            data[3]=data[4];
+
+            /*
+            for (int i = 0; i < size; i--) {
+                data[i + 1] = data[i];
+            }
+            data[0] = data[1];
+            */
+
+
+
+            size--;
+
+            return removed;
+        }
+
 
         // if there's only one item: is this a special case?
 
@@ -83,6 +132,16 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // check if empty
         // if empty: do nothing and return null
 
+        if (size == 0) {
+            throw new NullPointerException();
+        } else {
+
+            ItemType removed = data[size - 1];
+            data[size - 1] = null;
+            size--;
+            return removed;
+        }
+
         // if there is only one item: is this a special case?
 
         // if not empty, has more than one item:
@@ -91,7 +150,6 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
 
-        return null;
     }
 
     // helper method to check to see if the size has reached the capacity
@@ -115,5 +173,15 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+
+    @Override
+    public String toString() {
+        String result ="[";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + ",";
+        }
+        return result+"]";
     }
 }
