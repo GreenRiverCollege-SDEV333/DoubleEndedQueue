@@ -6,7 +6,7 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     }
 
     // fields
-    private Node head;
+    private ItemType head;
     private int size;
 
     /**
@@ -34,6 +34,8 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
+        head = item;
+        size++;
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
     }
@@ -47,6 +49,10 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+        //size - 1 = item;
+        //size++;
+
     }
 
     /**
@@ -58,6 +64,9 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeFirst() {
         // check if empty
         // if empty: do nothing and return null
+        if (size == 0){
+            return null;
+        }
 
         // if there's only one item: is this a special case?
 
@@ -79,6 +88,12 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+        if (size == 0){
+            return null;
+        }
+
+        //size - 1 = item;
+        //size--;
 
         // if there is only one item: is this a special case?
 
@@ -89,5 +104,23 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 3. return the variable that has the saved copy of the item at the back
 
         return null;
+    }
+
+//    @Override
+//    public String toString() {
+//        String result = "";
+//        Node current = head;
+//        while (current != null) {
+//            result += current.data + " ";
+//            current = current.next;
+//        }
+//        return result;
+//    }
+
+    @Override
+    public String toString() {
+        return "SinglyLinkedDeque{" + head +
+                ", size=" + size +
+                '}';
     }
 }

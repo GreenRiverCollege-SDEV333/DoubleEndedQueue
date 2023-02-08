@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     // constants
     public static int DEFAULT_CAPACITY = 10;
@@ -32,7 +34,11 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public void addFirst(ItemType item) {
         // consider the case of adding to an empty list
+        data[size] = item;
+        size++;
+
         // consider the case of adding to a non-empty list
+
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
@@ -46,7 +52,10 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public void addLast(ItemType item) {
         // consider the case of adding to an empty list
+
         // consider the case of adding to a non-empty list
+        data[size + 1 - 1] = item;
+        size++;
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
@@ -59,8 +68,12 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeFirst() {
+
         // check if empty
         // if empty: do nothing and return null
+        if (size == 0){
+            return null;
+        }
 
         // if there's only one item: is this a special case?
 
@@ -82,6 +95,12 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     public ItemType removeLast() {
         // check if empty
         // if empty: do nothing and return null
+        if (size == 0){
+            return null;
+        }
+
+        //size - 1 = item;
+        //size--;
 
         // if there is only one item: is this a special case?
 
@@ -115,5 +134,22 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+//    @Override
+//    public String toString() {
+//        String result = "";
+//        for (int i = 0; i < size; i++) {
+//            result += data[i] + " ";
+//        }
+//        return result;
+//    }
+
+
+    @Override
+    public String toString() {
+        return "ResizingArrayDeque{" + Arrays.toString(data) +
+                ", size=" + size +
+                '}';
     }
 }
