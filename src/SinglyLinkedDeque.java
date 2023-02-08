@@ -34,8 +34,24 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
+        if(item == null){
+            throw new NullPointerException();
+        }
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+
+        if(head == null){
+            Node addThis = new Node();
+            addThis.data = item;
+            addThis.next = null;
+            head = addThis;
+        }else{
+            Node insert = new Node();
+            insert.data = item;
+            insert.next = head;
+            head = insert;
+        }
+        size++;
     }
 
     /**
@@ -45,8 +61,27 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
+        if(item == null){
+            throw new NullPointerException();
+        }
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
+        if(head == null){
+            Node addThis = new Node();
+            addThis.data = item;
+            addThis.next = null;
+            head = addThis;
+        }else{
+            Node currentNode = head;
+            while(currentNode.next != null){
+                currentNode = currentNode.next;
+            }
+            Node insert = new Node();
+            insert.data = item;
+            insert.next = null;
+            currentNode.next = insert;
+        }
+        size++;
     }
 
     /**
@@ -67,7 +102,23 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
 
-        return null;
+        if(head == null){
+            return null;
+        }
+        if(head.next == null){
+            ItemType returnThis = head.data;
+            head = null;
+            size--;
+            return returnThis;
+
+        }else{
+            ItemType returnThis = head.data;
+            head = head.next;
+            size--;
+            return returnThis;
+
+        }
+
     }
 
     /**
@@ -87,7 +138,23 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the back
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
-
-        return null;
+        if (head == null) {
+            return null;
+        }
+        if (head.next == null) {
+            ItemType returnThis = head.data;
+            head = null;
+            size--;
+            return returnThis;
+        } else {
+            Node currentNode = head;
+            while (currentNode.next.next != null) {
+                currentNode = currentNode.next;
+            }
+            ItemType returnThis = currentNode.next.data;
+            currentNode.next = null;
+            size--;
+            return returnThis;
+        }
     }
 }

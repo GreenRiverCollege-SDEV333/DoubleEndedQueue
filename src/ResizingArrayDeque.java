@@ -36,6 +36,16 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+        checkSize();
+        if(size == 0){
+            data[0] = item;
+        }else {
+            for (int i = size; i > 0; i--) {
+                data[i] = data[i - 1];
+            }
+            data[0] = item;
+        }
+        size++;
     }
 
     /**
@@ -50,6 +60,13 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
+        checkSize();
+        if(size == 0){
+            data[0] = item;
+        }else{
+            data[size] = item;
+        }
+        size++;
     }
 
     /**
@@ -69,8 +86,24 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the front
         // 2. remove the item at the front
         // 3. return the variable that has the saved copy of the item at the front
-
-        return null;
+        if(size == 0){
+            return null;
+        }
+        else if (size == 1) {
+            ItemType returnThis = data[0];
+            data[0] = null;
+            size--;
+            return returnThis;
+        }
+        else{
+            ItemType returnThis = data[0];
+            for(int i = 0; i< size ; i++){
+                data[i] = data[i+1];
+            }
+            data[size] = null;
+            size--;
+            return returnThis;
+        }
     }
 
     /**
@@ -90,8 +123,23 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
         // 1. make a variable to save a copy of the item at the back
         // 2. remove the item at the back
         // 3. return the variable that has the saved copy of the item at the back
+        if(size == 0){
+            return null;
+        }
+        else if(size == 1){
+            ItemType returnThis = data[0];
+            data[0] = null;
+            size--;
+            return returnThis;
 
-        return null;
+        }
+        else{
+            ItemType returnThis = data[size -1];
+            data[size -1] = null;
+            size--;
+            return returnThis;
+        }
+
     }
 
     // helper method to check to see if the size has reached the capacity
