@@ -26,13 +26,33 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
 
     /**
      * Adds an item to the front of the deque.
+     * public void add(int index, ItemType item) {//this adds to index and moves the rest to the end
+     * (can be used for add to front by changing index to i>size and this.data[0]=item
+     *     checkSize();
+     *         size++;
+     *         for (int i = size; i>=index; i--){
+     *             data[i] = data[i-1];
+     *         }
+     *         this.data[index]=item;
      *
      * @param item item to be added
      */
     @Override
     public void addFirst(ItemType item) {
+        checkSize();
         // consider the case of adding to an empty list
+        if(size==0){
+            data[0]=item;
+            size++;
+        }
         // consider the case of adding to a non-empty list
+        else{
+            size++;
+            for (int i = size; i >0 ; i--) {
+                data[i+1]=data[i];
+                data[0]=item;
+            }
+        }
 
         // There is a private helper method checkSize() defined below to check/resize
         // that you can call as needed to check if the array is full and resize it.
@@ -45,6 +65,12 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
+        checkSize();
+        if(size==0){
+            data[0]=item;
+        }else{
+            data[size]=item;
+        }size++;
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
 
@@ -60,17 +86,17 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     @Override
     public ItemType removeFirst() {
         // check if empty
-        // if empty: do nothing and return null
-
-        // if there's only one item: is this a special case?
-
-        // if not empty:
-        // 0. figure out a way to access the item in the front
-        // 1. make a variable to save a copy of the item at the front
-        // 2. remove the item at the front
-        // 3. return the variable that has the saved copy of the item at the front
-
-        return null;
+        ItemType thingToReturn = data[0];
+        if(size==0){
+            return null;
+        }else if(size==1){
+            size--;
+        }else{
+            for (int i = 0; i < size-1; i++) {
+                data[i] = data[i+1];
+                                }
+        }size--;
+        return thingToReturn;
     }
 
     /**
@@ -80,18 +106,22 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeLast() {
-        // check if empty
-        // if empty: do nothing and return null
+        ItemType thingToReturn = data[size-1];
+        if(size==0){
+            return null;
+        }else {
+            size--;
+        }
+        return thingToReturn;
+    }
 
-        // if there is only one item: is this a special case?
+    public String toString(){
+        String result = "";
+        for (int i = 0; i < size; i++) {
+            result += data[i] + " ";
 
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
-
-        return null;
+        }
+        return result;
     }
 
     // helper method to check to see if the size has reached the capacity

@@ -34,8 +34,18 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
-        // consider the case of adding to an empty list
-        // consider the case of adding to a non-empty list
+        Node newNode = new Node();
+        if(size==0){
+            newNode.data = item;
+            newNode.next = null;
+            head = newNode;
+            size++;
+         }else {
+            newNode.data = item;
+            newNode.next = head;
+            head = newNode;
+            size++;
+        }
     }
 
     /**
@@ -45,6 +55,22 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
+        Node newNode = new Node();
+        if(size==0){
+            newNode.data = item;
+            newNode.next = head;
+            head = newNode;
+            size++;
+        }else{
+            Node current = head;
+            while (current.next !=null) {
+                current=current.next;
+            }
+            newNode.data = item;
+            newNode.next = current.next;
+            current.next = newNode;
+            size++;
+        }
         // consider the case of adding to an empty list
         // consider the case of adding to a non-empty list
     }
@@ -56,18 +82,19 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeFirst() {
+        ItemType thingToReturn;
         // check if empty
-        // if empty: do nothing and return null
+        if(size==0){
+            thingToReturn= null;
+        }else {
+            thingToReturn = head.data;
+            Node current = new Node();
+            current.next = head;
+            head = current.next.next;
+            size--;
+        }
 
-        // if there's only one item: is this a special case?
-
-        // if not empty:
-        // 0. figure out a way to access the item in the front
-        // 1. make a variable to save a copy of the item at the front
-        // 2. remove the item at the front
-        // 3. return the variable that has the saved copy of the item at the front
-
-        return null;
+        return thingToReturn;
     }
 
     /**
@@ -77,17 +104,18 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeLast() {
+        ItemType thingToReturn;
         // check if empty
-        // if empty: do nothing and return null
+        if(size==0){
+            thingToReturn= null;
+        }else {
+            Node current = head;
+            while (current.next!=null){
+                current = current.next;
+            }
+            thingToReturn = current.data;
+        }size --;
 
-        // if there is only one item: is this a special case?
-
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
-
-        return null;
+        return thingToReturn;
     }
 }
