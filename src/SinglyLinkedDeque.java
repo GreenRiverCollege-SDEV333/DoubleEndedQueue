@@ -1,3 +1,9 @@
+/**
+ * This class was created by Ken Hang, four methods addFirst, addLast, removeFirst,
+ * and removeLast were implemented by Paul with interfaces by Ken.
+ *
+ * @author Paul Woods, Ken Hang
+ */
 public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
     // private helper classes
     private class Node {
@@ -27,6 +33,23 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
         return size;
     }
 
+    @Override
+    public String toString() {
+
+        if (head == null)
+            return "";
+
+        String s = "";
+        Node n = head;
+
+        while (n != null) {
+            s += n.data + " ";
+            n = n.next;
+        }
+
+        return s;
+    }
+
     /**
      * Adds an item to the front of the deque.
      *
@@ -34,8 +57,21 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
-        // consider the case of adding to an empty list
-        // consider the case of adding to a non-empty list
+
+        // Create our new node
+        Node n = new Node();
+        n.data = item;
+
+        if (head == null) {
+            // assign head to point to new node
+            head = n;
+            size = 1;
+        } else {
+            // insert new node at head of list
+            n.next = head;
+            head = n;
+            size++;
+        }
     }
 
     /**
@@ -45,8 +81,26 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
-        // consider the case of adding to an empty list
-        // consider the case of adding to a non-empty list
+
+        // create new node
+        Node n = new Node();
+        n.data = item;
+
+        if (head == null) {
+            // list is empty, assign new node at head of list
+            head = n;
+            size = 1;
+        } else {
+            // go to last node
+            Node h = head;
+            while (h.next != null) {
+                h = h.next;
+            }
+
+            // add new node at end
+            h.next = n; // assign null h.next at last node to equal new node n
+            size++;
+        }
     }
 
     /**
@@ -56,18 +110,20 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeFirst() {
-        // check if empty
-        // if empty: do nothing and return null
 
-        // if there's only one item: is this a special case?
+        // if head is null / list is empty, return null
+        if (head == null) {
+            return null;
+        } else {
+            // save 1st item
+            ItemType item = head.data;
 
-        // if not empty:
-        // 0. figure out a way to access the item in the front
-        // 1. make a variable to save a copy of the item at the front
-        // 2. remove the item at the front
-        // 3. return the variable that has the saved copy of the item at the front
+            // re-assign head to 2nd item, and decrement size
+            head = head.next;
+            size--;
 
-        return null;
+            return item;
+        }
     }
 
     /**
@@ -77,17 +133,33 @@ public class SinglyLinkedDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeLast() {
-        // check if empty
-        // if empty: do nothing and return null
 
-        // if there is only one item: is this a special case?
+        // if empty list, return null
+        if (head == null) {
+            return null;
+        } else if (size == 1) {
+            // if size = 1, return that item, set list to null
+            ItemType item = head.data;
+            head = null;
+            --size;
+            return item;
+        } else {
+            // list has > 1 node, test using node.next.next ..
 
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
+            Node h = head;
 
-        return null;
+            // want to maintain reference to new/next-to last node so we can 'remove' the last one
+            while (h.next.next != null) {
+                h = h.next;
+            }
+
+
+            ItemType item = h.next.data;
+            h.next = null;
+
+            --size;
+
+            return item;
+        }
     }
 }

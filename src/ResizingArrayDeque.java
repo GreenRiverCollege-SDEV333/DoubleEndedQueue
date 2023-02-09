@@ -1,3 +1,11 @@
+import java.util.Arrays;
+
+/**
+ * This class was created by Ken Hang, four methods addFirst, addLast, removeFirst,
+ * and removeLast were implemented by Paul with interfaces by Ken.
+ *
+ * @author Paul Woods, Ken Hang
+ */
 public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
     // constants
     public static int DEFAULT_CAPACITY = 10;
@@ -31,11 +39,20 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addFirst(ItemType item) {
-        // consider the case of adding to an empty list
-        // consider the case of adding to a non-empty list
+        // Properties/Methods: DEFAULT_CAPACITY = 10, ItemType[] data, int size, checkSize()
 
-        // There is a private helper method checkSize() defined below to check/resize
-        // that you can call as needed to check if the array is full and resize it.
+        // Check size of underlying array, increase if necessary
+        checkSize();
+
+        // reposition all elements one place up
+        for (int i = size; i > 0; i--) {
+            data[i] = data[i-1];
+        }
+
+        // assign new data to data[0], as that has been moved to data[1]
+        data[0] = item;
+
+        ++size;
     }
 
     /**
@@ -45,11 +62,9 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public void addLast(ItemType item) {
-        // consider the case of adding to an empty list
-        // consider the case of adding to a non-empty list
+        checkSize();
 
-        // There is a private helper method checkSize() defined below to check/resize
-        // that you can call as needed to check if the array is full and resize it.
+        data[size++] = item;
     }
 
     /**
@@ -59,18 +74,22 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeFirst() {
-        // check if empty
+
         // if empty: do nothing and return null
+        if (size == 0) {
+            return null;
+        }
 
-        // if there's only one item: is this a special case?
+        // non-empty, save 1st element, and shift all others down 1 place
+        ItemType item = data[0];
+        for (int i = 0; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
 
-        // if not empty:
-        // 0. figure out a way to access the item in the front
-        // 1. make a variable to save a copy of the item at the front
-        // 2. remove the item at the front
-        // 3. return the variable that has the saved copy of the item at the front
+        --size;
 
-        return null;
+        // return 1st element that was saved
+        return item;
     }
 
     /**
@@ -80,18 +99,18 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
      */
     @Override
     public ItemType removeLast() {
-        // check if empty
+
         // if empty: do nothing and return null
+        if (size == 0) {
+            return null;
+        }
 
-        // if there is only one item: is this a special case?
+        ItemType item = data[size-1];
+        data[size-1] = null;
 
-        // if not empty, has more than one item:
-        // 0. figure out a way to access the item in the back
-        // 1. make a variable to save a copy of the item at the back
-        // 2. remove the item at the back
-        // 3. return the variable that has the saved copy of the item at the back
+        --size;
 
-        return null;
+        return item;
     }
 
     // helper method to check to see if the size has reached the capacity
@@ -115,5 +134,16 @@ public class ResizingArrayDeque<ItemType> implements Deque<ItemType> {
             // Optional:
             temp = null;
         } // end of if (need to resize)
+    }
+
+    @Override
+    public String toString() {
+        String s = "";
+        for (int i = 0; i < size; i++) {
+            s += data[i];
+            if (i < size-1)
+                s += ", ";
+        }
+        return s;
     }
 }
